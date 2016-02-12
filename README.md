@@ -1,4 +1,4 @@
-swagger-codegen-maven-plugin
+swagger-codegen-gradle-plugin
 ============================
 
 [![Build Status](https://travis-ci.org/thebignet/swagger-codegen-gradle-plugin.svg?branch=master)](https://travis-ci.org/thebignet/swagger-codegen-gradle-plugin)
