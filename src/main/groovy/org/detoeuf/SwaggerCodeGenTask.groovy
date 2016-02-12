@@ -19,7 +19,7 @@ class SwaggerCodeGenTask extends DefaultTask {
         Swagger swagger = new SwaggerParser().read(project.file(project.swaggerInputSpec).absolutePath)
         CodegenConfig config = forName(project.swaggerLanguage)
 
-        def outputDir = project.hasProperty('swaggerOutput') ? project.swaggerOutput : 'target/generated-sources/swagger'
+        def outputDir = project.hasProperty('swaggerOutput') ? project.swaggerOutput : 'build/generated-sources/swagger'
         config.setOutputDir(project.file(outputDir).absolutePath)
         project.delete(outputDir)
 
