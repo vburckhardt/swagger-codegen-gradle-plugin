@@ -34,8 +34,10 @@ uploadArchives {
     }
 }
 
-version = '1.4'
+version = '1.4.1'
 group = 'org.detoeuf'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 pluginBundle {
     website = 'http://www.gradle.org/'
