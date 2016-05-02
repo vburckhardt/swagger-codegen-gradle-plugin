@@ -16,7 +16,7 @@ apply plugin: 'maven'
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile 'io.swagger:swagger-codegen:2.1.5'
+    compile 'io.swagger:swagger-codegen:2.1.6'
     compile gradleApi()
     compile localGroovy()
 }
@@ -26,6 +26,7 @@ repositories {
     jcenter()
 }
 
+apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
