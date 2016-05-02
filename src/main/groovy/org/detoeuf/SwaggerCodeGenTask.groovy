@@ -29,6 +29,9 @@ class SwaggerCodeGenTask extends DefaultTask {
         if(project.hasProperty('swaggerApiPackage')){
             config.additionalProperties().put('apiPackage', project.swaggerApiPackage)
         }
+        if(project.hasProperty('swaggerConfigPackage')){
+            config.additionalProperties().put('configPackage', project.swaggerConfigPackage)
+        }
         if(project.hasProperty('swaggerInvokerPackage')){
             config.additionalProperties().put('invokerPackage', project.swaggerInvokerPackage)
         }

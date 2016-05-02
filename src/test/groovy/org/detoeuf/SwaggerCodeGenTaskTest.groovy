@@ -15,7 +15,6 @@ class SwaggerCodeGenTaskTest {
         assertTrue(task instanceof SwaggerCodeGenTask)
     }
 
-   // @Ignore("Wait until swagger-codegen detects file type correctly.  Version 2.1.5 (?) cannot get yaml file from classpath which is why this test is ignored")
     @Test
     public void basicConfiguration() {
 
@@ -24,9 +23,10 @@ class SwaggerCodeGenTaskTest {
 
         Project project = ProjectBuilder.builder().build()
         project.set('swaggerInputSpec', file.toString())
-        project.set('swaggerApiPackage', 'com.orange.testApi')
-        project.set('swaggerInvokerPackage', 'com.orange.testPackage')
-        project.set('swaggerModelPackage', 'com.orange.testModel')
+        project.set('swaggerApiPackage', 'com.detoeuf.testApi')
+        project.set('swaggerConfigPackage', 'com.detoeuf.testConfig')
+        project.set('swaggerInvokerPackage', 'com.detoeuf.testPackage')
+        project.set('swaggerModelPackage', 'com.detoeuf.testModel')
         project.set('swaggerLanguage', 'java')
         project.set('swaggerOutput', 'target/generated-sources/swagger')
         project.set('swaggerSrc', 'src/swagger')
