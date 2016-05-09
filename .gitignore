@@ -15,3 +15,4 @@ release.properties
 generated-sources
 .gradle
 build/
+gradle.properties
