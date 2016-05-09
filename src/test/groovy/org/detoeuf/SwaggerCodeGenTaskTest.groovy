@@ -29,7 +29,6 @@ class SwaggerCodeGenTaskTest {
         project.set('swaggerModelPackage', 'com.detoeuf.testModel')
         project.set('swaggerLanguage', 'java')
         project.set('swaggerOutput', 'target/generated-sources/swagger')
-        project.set('swaggerSrc', 'src/swagger')
         project.set('swaggerLibrary', 'okhttp-gson')
         def task = project.task('swagger', type: SwaggerCodeGenTask, dependsOn: 'processTestResources')
         assertTrue(task instanceof SwaggerCodeGenTask)

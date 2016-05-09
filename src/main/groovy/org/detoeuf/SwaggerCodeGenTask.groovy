@@ -44,16 +44,9 @@ class SwaggerCodeGenTask extends DefaultTask {
         }
 
         ClientOptInput input = new ClientOptInput().opts(new ClientOpts()).swagger(swagger)
-
         input.setConfig(config)
 
-        def srcDir = project.hasProperty('swaggerSrc') ? project.swaggerSrc : 'src/swagger'
-        project.delete(srcDir)
         new DefaultGenerator().opts(input).generate()
-        project.copy {
-            from outputDir+'/src/main/'+project.swaggerLanguage
-            into srcDir+'/'+project.swaggerLanguage
-        }
     }
 
     private static void applyConfigFileSettings(final CodegenConfig config, final File swaggerConfigFile) {
