@@ -1,13 +1,9 @@
 package org.detoeuf
 
-import config.Config
-import config.ConfigParser
-import io.swagger.codegen.CliOption
 import io.swagger.codegen.ClientOptInput
 import io.swagger.codegen.ClientOpts
 import io.swagger.codegen.CodegenConfig
 import io.swagger.codegen.DefaultGenerator
-import io.swagger.models.Swagger
 import io.swagger.parser.SwaggerParser
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -16,48 +12,29 @@ class SwaggerCodeGenTask extends DefaultTask {
 
     @TaskAction
     def swaggerCodeGen() {
-        Swagger swagger = new SwaggerParser().read(project.file(project.swaggerInputSpec).absolutePath)
-        CodegenConfig config = forName(project.swaggerLanguage)
+        def swaggerPlugin = project.extensions.findByName('swagger').asType(SwaggerPluginExtension.class)
 
-        def outputDir = project.hasProperty('swaggerOutput') ? project.swaggerOutput : 'build/generated-sources/swagger'
-        config.setOutputDir(project.file(outputDir).absolutePath)
-        project.delete(outputDir)
+        // Configuration for language
+        CodegenConfig config = forName(swaggerPlugin.language)
 
-        if (project.hasProperty('swaggerTemplateDirectory')) {
-            config.additionalProperties().put("templateDir", project.file(project.swaggerTemplateDirectory).absolutePath)
-        }
-        if(project.hasProperty('swaggerApiPackage')){
-            config.additionalProperties().put('apiPackage', project.swaggerApiPackage)
-        }
-        if(project.hasProperty('swaggerConfigPackage')){
-            config.additionalProperties().put('configPackage', project.swaggerConfigPackage)
-        }
-        if(project.hasProperty('swaggerInvokerPackage')){
-            config.additionalProperties().put('invokerPackage', project.swaggerInvokerPackage)
-        }
-        if(project.hasProperty('swaggerModelPackage')){
-            config.additionalProperties().put('modelPackage', project.swaggerModelPackage)
-        }
+        // Outputdir + clean
+        config.setOutputDir(project.file(swaggerPlugin.output ?: 'build/generated-sources/swagger').absolutePath)
+        project.delete(config.getOutputDir())
 
-        if(project.hasProperty("swaggerLibrary")){
-            config.additionalProperties().put('library', project.swaggerLibrary)
-        }
+        // Add additional properties
+        config.additionalProperties().putAll(swaggerPlugin.additionalProperties)
 
-        ClientOptInput input = new ClientOptInput().opts(new ClientOpts()).swagger(swagger)
-        input.setConfig(config)
+        if (swaggerPlugin.apis != null) System.setProperty('apis', swaggerPlugin.apis)
+        if (swaggerPlugin.models != null) System.setProperty('models', swaggerPlugin.models)
+        if (swaggerPlugin.supportingFiles != null) System.setProperty('supportingFiles', swaggerPlugin.supportingFiles)
+
+        // Client input
+        ClientOptInput input = new ClientOptInput()
+                .opts(new ClientOpts())
+                .swagger(new SwaggerParser().read(swaggerPlugin.inputSpec))
+                .config(config)
 
         new DefaultGenerator().opts(input).generate()
-    }
-
-    private static void applyConfigFileSettings(final CodegenConfig config, final File swaggerConfigFile) {
-        Config genConfig = ConfigParser.read(swaggerConfigFile.absolutePath);
-        if (null != genConfig) {
-            for (CliOption langCliOption : config.cliOptions()) {
-                if (genConfig.hasOption(langCliOption.getOpt())) {
-                    config.additionalProperties().put(langCliOption.getOpt(), genConfig.getOption(langCliOption.getOpt()));
-                }
-            }
-        }
     }
 
     private static CodegenConfig forName(String name) {
