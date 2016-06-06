@@ -35,7 +35,7 @@ uploadArchives {
     }
 }
 
-version = '1.5.1'
+version = '1.6.0'
 group = 'org.detoeuf'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -48,7 +48,7 @@ pluginBundle {
 
     plugins {
         swaggerCodeGenPlugin {
-            id = 'org.detoeuf.swagger-code-gen'
+            id = 'org.detoeuf.swagger-codegen'
             displayName = 'Gradle Swagger code generator plugin'
         }
     }

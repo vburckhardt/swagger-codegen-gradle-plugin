@@ -10,7 +10,7 @@ Usage
 
 see the [swagger-codegen-gradle-plugin-example](https://github.com/vorburger/swagger-codegen-gradle-plugin-example), or:
 
-Add to your `build.gradle` the following
+Here is an example of how to use the plugin in a `build.gradle` file
 ```groovy
 plugins {
     id 'org.detoeuf.swagger-codegen' version '1.6.0'
@@ -44,7 +44,6 @@ sourceSets {
         }
     }
 }
-
 
 ext {
     jackson_version = '2.4.2'
