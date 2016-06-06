@@ -12,18 +12,59 @@ see the [swagger-codegen-gradle-plugin-example](https://github.com/vorburger/swa
 
 Add to your `build.gradle` the following
 ```groovy
-ext {
-    swaggerInputSpec = 'src/main/resources/petstore.yaml'
-    swaggerOutput = 'src/swagger'
-    swaggerLanguage = 'java'
+plugins {
+    id 'org.detoeuf.swagger-codegen' version '1.6.0'
+    id 'java'
 }
 
-apply plugin: 'org.detoeuf.swagger-code-gen'
+repositories {
+    jcenter()
+}
+
+swagger {
+    inputSpec = 'http://petstore.swagger.io/v2/swagger.json'
+
+    output = 'build/swagger'
+    language = 'spring-mvc'
+
+    additionalProperties = [
+            'invokerPackage'   : 'io.swagger.petstore.client.jersey1',
+            'modelPackage'     : 'io.swagger.petstore.client.jersey1.model',
+            'apiPackage'       : 'io.swagger.petstore.client.jersey1.api',
+            'dateLibrary'      : 'java8'
+    ]
+    apis = ''
+    models = ''
+}
 
 sourceSets {
     swagger {
-        java.srcDir file('src/swagger/java')
+        java {
+            srcDir file("${project.buildDir.path}/swagger/src/main/java")
+        }
     }
+}
+
+
+ext {
+    jackson_version = '2.4.2'
+    jersey_version = '1.18'
+    jodatime_version = '2.3'
+    junit_version = '4.8.1'
+}
+
+dependencies {
+    swaggerCompile 'org.springframework.boot:spring-boot-starter-web'
+
+    compile "com.sun.jersey:jersey-client:$jersey_version"
+    compile "com.sun.jersey.contribs:jersey-multipart:$jersey_version"
+    compile "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.1.5"
+    compile "joda-time:joda-time:$jodatime_version"
+
+    testCompile "junit:junit:$junit_version"
 }
 ```
 
@@ -35,12 +76,10 @@ gradle swagger
 
 ### Configuration parameters
 
-- `swaggerInputSpec` - swagger spec file path
-- `swaggerLanguage` - target generation language. Adapt sourceSet accordingly.
-- `swaggerTemplateDirectory` - directory with mustache templates
-- `swaggerApiPackage` - package for default API
-- `swaggerApiConfig` - package for configuration
-- `swaggerInvokerPackage` - package for invoker
-- `swaggerModelPackage` - package for models
-- `swaggerOutput` - target output path (default is ${project.build.directory}/generated-sources/swagger)
-- `swaggerLibrary` -  library template (sub-template) to use
+- `inputSpec` - swagger spec file path
+- `output` - target output path (default is ${project.build.directory}/generated-sources/swagger)
+- `language` - target generation language. Adapt sourceSet accordingly.
+- `additionalProperties` - sets additional properties that can be referenced by the mustache templates in the format of name=value,name=value.  See [Customizing the generator](https://github.com/swagger-api/swagger-codegen/#customizing-the-generator) for list of parameters
+- `models` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of models.  Leave blank to generate models only
+- `apis` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of apis.  Leave blank to generate apis only
+- `supportingFiles` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of supporting files.  Leave blank to generate supporting files only
