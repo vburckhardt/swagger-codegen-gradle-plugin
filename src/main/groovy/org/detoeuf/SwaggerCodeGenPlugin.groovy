@@ -5,6 +5,12 @@ import org.gradle.api.Project
 
 class SwaggerCodeGenPlugin implements Plugin<Project> {
     void apply(Project project) {
+        project.extensions.create('swagger', SwaggerPluginExtension)
         project.task('swagger', type: SwaggerCodeGenTask)
+        project.getTasksByName('compileJava',false).each { it.dependsOn('swagger') }
+        project.configurations {
+            swaggerCompile.extendsFrom compile
+            swaggerRuntime.extendsFrom runtime
+        }
     }
 }
