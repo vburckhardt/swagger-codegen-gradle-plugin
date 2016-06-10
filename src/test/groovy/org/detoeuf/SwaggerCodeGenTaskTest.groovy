@@ -32,7 +32,8 @@ class SwaggerCodeGenTaskTest {
                         'configPackage': 'com.detoeuf.testConfig',
                         'invokerPackage': 'com.detoeuf.testPackage',
                         'modelPackage': 'com.detoeuf.testModel',
-                        'library': 'okhttp-gson'
+                        'library': 'okhttp-gson',
+                        'dateLibrary': 'java8'
                 ]
         )
 

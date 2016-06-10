@@ -16,7 +16,7 @@ apply plugin: 'maven'
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile 'io.swagger:swagger-codegen:2.1.6'
+    compile 'io.swagger:swagger-codegen:2.2.0-SNAPSHOT'
     compile gradleApi()
     compile localGroovy()
 }
@@ -24,6 +24,9 @@ dependencies {
 repositories {
     mavenCentral()
     jcenter()
+    maven {
+        url uri('C:\\applications\\maison\\repositoryMaven')
+    }
 }
 
 apply plugin: 'maven'
