@@ -8,4 +8,5 @@ class SwaggerPluginExtension {
     String models
     String apis
     String supportingFiles
+    Boolean cleanOutputDir = true
 }

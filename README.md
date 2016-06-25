@@ -82,3 +82,4 @@ gradle swagger
 - `models` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of models.  Leave blank to generate models only
 - `apis` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of apis.  Leave blank to generate apis only
 - `supportingFiles` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of supporting files.  Leave blank to generate supporting files only
+- `cleanOutputDir` - set if the output folders should be deleted (default is true)

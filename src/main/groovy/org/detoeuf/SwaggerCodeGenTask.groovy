@@ -19,8 +19,10 @@ class SwaggerCodeGenTask extends DefaultTask {
 
         // Outputdir + clean
         config.setOutputDir(project.file(swaggerPlugin.output ?: 'build/generated-sources/swagger').absolutePath)
-        project.delete(config.getOutputDir())
-
+        if (swaggerPlugin.cleanOutputDir == true) {
+        	project.delete(config.getOutputDir())
+        }
+        
         // Add additional properties
         config.additionalProperties().putAll(swaggerPlugin.additionalProperties)
 

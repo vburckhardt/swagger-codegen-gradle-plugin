@@ -64,7 +64,9 @@ class SwaggerCodeGenTaskTest {
                         'serializableModel': 'true'
                 ],
                 apis: '',
-                models: ''
+                models: '',
+                cleanOutputDir: 'false'
+                
         )
 
         project.extensions.add('swagger', pluginExtension)
