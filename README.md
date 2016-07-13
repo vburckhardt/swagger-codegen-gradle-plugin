@@ -8,7 +8,7 @@ A Gradle plugin to support the [swagger](http://swagger.io) code generation proj
 Usage
 ============================
 
-see the [swagger-codegen-gradle-plugin-example](https://github.com/vorburger/swagger-codegen-gradle-plugin-example), or:
+see the [swagger-codegen-gradle-plugin-example](https://github.com/thebignet/swagger-codegen-gradle-plugin-example), or:
 
 Here is an example of how to use the plugin in a `build.gradle` file
 ```groovy
