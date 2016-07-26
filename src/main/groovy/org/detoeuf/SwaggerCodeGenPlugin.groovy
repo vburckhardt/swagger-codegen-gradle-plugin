@@ -12,6 +12,5 @@ class SwaggerCodeGenPlugin implements Plugin<Project> {
             compile.extendsFrom swaggerCompile
             runtime.extendsFrom swaggerRuntime
         }
-        project.dependencies.swaggerCompile 'io.swagger:swagger-annotations:1.5.0'
     }
 }
