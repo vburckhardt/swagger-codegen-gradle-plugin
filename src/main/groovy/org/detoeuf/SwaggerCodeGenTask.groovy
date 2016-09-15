@@ -24,7 +24,7 @@ class SwaggerCodeGenTask extends DefaultTask {
         }
         
         // Add additional properties
-        config.additionalProperties().putAll(swaggerPlugin.additionalProperties)
+        config.additionalProperties()?.putAll(swaggerPlugin.additionalProperties)
 
         if (swaggerPlugin.apis != null) System.setProperty('apis', swaggerPlugin.apis)
         if (swaggerPlugin.models != null) System.setProperty('models', swaggerPlugin.models)
