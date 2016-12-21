@@ -16,3 +16,4 @@ generated-sources
 .gradle
 build/
 gradle.properties
+classes/

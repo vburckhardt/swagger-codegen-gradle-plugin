@@ -1,5 +1,6 @@
 package org.detoeuf
 
+import io.swagger.codegen.config.CodegenConfigurator
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
@@ -23,10 +24,10 @@ class SwaggerCodeGenTaskTest {
         Project project = ProjectBuilder.builder().build()
         def task = project.task('swagger', type: SwaggerCodeGenTask)
 
-        def pluginExtension = new SwaggerPluginExtension(
+        def pluginExtension = new CodegenConfigurator(
                 inputSpec: file.toString(),
-                output: 'target/generated-sources/swagger',
-                language: 'java',
+                outputDir: 'target/generated-sources/swagger',
+                lang: 'java',
                 additionalProperties: [
                         'apiPackage': 'com.detoeuf.testApi',
                         'configPackage': 'com.detoeuf.testConfig',
@@ -51,10 +52,10 @@ class SwaggerCodeGenTaskTest {
         Project project = ProjectBuilder.builder().build()
         def task = project.task('swagger', type: SwaggerCodeGenTask)
 
-        def pluginExtension = new SwaggerPluginExtension(
+        def pluginExtension = new CodegenConfigurator(
                 inputSpec: file.toString(),
-                output: 'target/generated-sources/swagger',
-                language: 'java',
+                outputDir: 'target/generated-sources/swagger',
+                lang: 'java',
                 additionalProperties: [
                         'apiPackage': 'com.detoeuf.testApi',
                         'configPackage': 'com.detoeuf.testConfig',
@@ -63,10 +64,10 @@ class SwaggerCodeGenTaskTest {
                         'library': 'okhttp-gson',
                         'serializableModel': 'true'
                 ],
-                apis: '',
-                models: '',
-                cleanOutputDir: 'false'
-                
+                systemProperties: [
+                        'apis' : '',
+                        'models' : ''
+                ]
         )
 
         project.extensions.add('swagger', pluginExtension)

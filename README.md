@@ -24,8 +24,8 @@ repositories {
 swagger {
     inputSpec = 'http://petstore.swagger.io/v2/swagger.json'
 
-    output = 'build/swagger'
-    language = 'spring-mvc'
+    outputDir = 'build/swagger'
+    lang = 'spring-mvc'
 
     additionalProperties = [
             'invokerPackage'   : 'io.swagger.petstore.client.jersey1',
@@ -33,8 +33,10 @@ swagger {
             'apiPackage'       : 'io.swagger.petstore.client.jersey1.api',
             'dateLibrary'      : 'java8'
     ]
-    apis = ''
-    models = ''
+    systemProperties = [
+        'apis' : '',
+        'models' = ''
+    ]
 }
 
 sourceSets {
@@ -74,12 +76,24 @@ gradle swagger
 ```
 
 ### Configuration parameters
+the `swagger {}` configuration is passed to [CodegenConfigurator.java](https://github.com/swagger-api/swagger-codegen/blob/v2.2.1/modules/swagger-codegen/src/main/java/io/swagger/codegen/config/CodegenConfigurator.java)
 
-- `inputSpec` - swagger spec file path
-- `output` - target output path (default is ${project.build.directory}/generated-sources/swagger)
-- `language` - target generation language. Adapt sourceSet accordingly.
+… to be documented …
+
+### deprecation warning
+the old behaviour had a custom plugin for this swagger config as seen below
+- `inputSpec` - :check:
+- `outputDir` - was: `output`
+- `lang` - was: `language`
 - `additionalProperties` - sets additional properties that can be referenced by the mustache templates in the format of name=value,name=value.  See [Customizing the generator](https://github.com/swagger-api/swagger-codegen/#customizing-the-generator) for list of parameters
-- `models` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of models.  Leave blank to generate models only
+
+#### new settings possible
+- `systemProperties` - see [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation)
+
+#### no longer included
+- `models` - have a look at the systemProperties section
 - `apis` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of apis.  Leave blank to generate apis only
 - `supportingFiles` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of supporting files.  Leave blank to generate supporting files only
-- `cleanOutputDir` - set if the output folders should be deleted (default is true)
+
+no substituion for:
+- `cleanOutputDir` - now, build / output dir is cleaned before every build, you can't any longer disable this
