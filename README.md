@@ -96,4 +96,9 @@ the old behaviour had a custom plugin for this swagger config as seen below
 - `supportingFiles` - [selective generation](https://github.com/swagger-api/swagger-codegen/#selective-generation) of supporting files.  Leave blank to generate supporting files only
 
 no substituion for:
-- `cleanOutputDir` - now, build / output dir is cleaned before every build, you can't any longer disable this
+- `cleanOutputDir` - now, configured by configuring the task directly:
+    ```groovy
+    tasks.getByName("swagger") {
+        cleanOutputDir = false
+    }
+    ```
