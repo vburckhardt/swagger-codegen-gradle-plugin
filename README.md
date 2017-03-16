@@ -35,7 +35,7 @@ swagger {
     ]
     systemProperties = [
         'apis' : '',
-        'models' = ''
+        'models' : ''
     ]
 }
 
